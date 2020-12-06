@@ -9,8 +9,13 @@ export default function applyMiddleware(...middlewares) {
       getState: store.getState,
       dispatch: (action, ...args) => dispatch(action, ...args)
     };
-
+    //middlewares:thunk,logger
     const middlewaresChain = middlewares.map(middleware => middleware(midApi));
+    // middlewaresChain=[function(dispatch) {
+    //   return action=>returnfn;
+    // },function(dispatch) {
+    //   rreturn action=>returnfn;
+    // }];
 
     // 是个函数
     dispatch = compose(...middlewaresChain)(store.dispatch);
